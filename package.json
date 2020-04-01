@@ -5,6 +5,9 @@
   "repository": "https://github.com/wellissongomes/taskList-backend",
   "author": "Wellisson Gomes <wellisson.cacho@ccc.ufcg.edu.br>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
