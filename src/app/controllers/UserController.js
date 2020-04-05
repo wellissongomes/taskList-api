@@ -2,15 +2,19 @@ import UserSerice from '../services/UserService';
 
 const UserController = {
   async store(req, res) {
-    const { email } = req.body;
-    const userExists = await UserSerice.userExists(email);
+    const { email: user_email } = req.body;
+    const userExists = await UserSerice.userExists(user_email);
 
     if (userExists) {
       return res.status(400).json({ error: 'Usuário já cadastrdao.' });
     }
 
-    const user = await UserSerice.create(req.body);
-    return res.json(user);
+    const { id, name, email } = await UserSerice.create(req.body);
+    return res.json({
+      id,
+      name,
+      email,
+    });
   },
 };
 
