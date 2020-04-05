@@ -15,6 +15,7 @@ const UserService = {
     const userExists = await User.findOne({
       where: { email },
     });
+
     return userExists;
   },
 };
