@@ -6,7 +6,7 @@ const UserController = {
     const userExists = await UserSerice.userExists(user_email);
 
     if (userExists) {
-      return res.status(400).json({ error: 'Usuário já cadastrdao.' });
+      return res.status(400).json({ error: 'Usuário já cadastrado.' });
     }
 
     const { id, name, email } = await UserSerice.create(req.body);
