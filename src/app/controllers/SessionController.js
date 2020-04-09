@@ -7,7 +7,7 @@ const SessionController = {
   async store(req, res) {
     const { email, password } = req.body;
 
-    const user = await UserService.userExists(email);
+    const user = await UserService.getUserByEmail(email);
     if (!user) {
       return res.status(401).json({ error: 'Email inexistente.' });
     }

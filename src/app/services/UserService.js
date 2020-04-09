@@ -11,12 +11,12 @@ const UserService = {
     return user;
   },
 
-  async userExists(email) {
-    const userExists = await User.findOne({
+  async getUserByEmail(email) {
+    const user = await User.findOne({
       where: { email },
     });
 
-    return userExists;
+    return user;
   },
 };
 

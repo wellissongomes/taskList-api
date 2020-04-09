@@ -3,7 +3,7 @@ import UserService from '../services/UserService';
 const UserController = {
   async store(req, res) {
     const { email: user_email } = req.body;
-    const userExists = await UserService.userExists(user_email);
+    const userExists = await UserService.getUserByEmail(user_email);
 
     if (userExists) {
       return res.status(400).json({ error: 'Usuário já cadastrado.' });
