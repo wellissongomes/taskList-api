@@ -10,11 +10,11 @@ const UserController = {
     }
 
     const { id, name, email } = await UserService.create(req.body);
-    return res.json({
-      id,
-      name,
-      email,
-    });
+    return res.json({ id, name, email });
+  },
+
+  async update(req, res) {
+    return res.json({ ok: true });
   },
 };
 
