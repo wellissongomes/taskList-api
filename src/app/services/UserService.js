@@ -18,6 +18,11 @@ const UserService = {
 
     return user;
   },
+
+  async getUserById(id) {
+    const user = await User.findByPk(id);
+    return user;
+  },
 };
 
 export default UserService;
