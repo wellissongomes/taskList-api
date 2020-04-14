@@ -1,9 +1,21 @@
+import * as Yup from 'yup';
 import UserService from '../services/UserService';
 
 import { validField } from '../util/util';
 
 const UserController = {
   async store(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string().email().required(),
+      password: Yup.string().required().min(6),
+    });
+
+    const isValid = await schema.isValid(req.body);
+    if (!isValid) {
+      return res.status(400).json({ error: 'Falha na validação.' });
+    }
+
     const { email: user_email } = req.body;
     const userExists = await UserService.getUserByEmail(user_email);
 
