@@ -31,6 +31,9 @@ const UserService = {
     if (oldPassword && (!password || !confirmPassword))
       throw new Error('Preencha todos os campos de senha.');
 
+    if (!oldPassword && (password || confirmPassword))
+      throw new Error('Digite a senha antiga para altera-la.');
+
     const userById = await this.getUserById(userId);
     const userByEmail = await this.getUserByEmail(email);
 
