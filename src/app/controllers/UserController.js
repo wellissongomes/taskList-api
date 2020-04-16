@@ -1,4 +1,3 @@
-import * as Yup from 'yup';
 import UserService from '../services/UserService';
 import UnauthorizedError from '../error/error';
 
