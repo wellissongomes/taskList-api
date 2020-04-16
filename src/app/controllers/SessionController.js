@@ -1,39 +1,27 @@
 import jwt from 'jsonwebtoken';
-import UserService from '../services/UserService';
+import SessionService from '../services/SessionService';
 
 import authConfig from '../../config/auth';
 
 const SessionController = {
   async store(req, res) {
-    const { email, password } = req.body;
+    try {
+      const { id, name, email } = await SessionService.create(req.body);
+      const { secret, expiresIn } = authConfig;
 
-    const user = await UserService.getUserByEmail(email);
-    if (!user) {
-      return res
-        .status(401)
-        .json({ error: 'Email inexistente. Tente novamente' });
+      return res.json({
+        user: {
+          id,
+          name,
+          email,
+        },
+        token: jwt.sign({ id }, secret, {
+          expiresIn,
+        }),
+      });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
     }
-
-    const correctPassword = await user.checkPassword(password);
-    if (!correctPassword) {
-      return res
-        .status(401)
-        .json({ error: 'Senha incorreta. Tente novamente' });
-    }
-
-    const { id, name } = user;
-    const { secret, expiresIn } = authConfig;
-
-    return res.json({
-      user: {
-        id,
-        name,
-        email,
-      },
-      token: jwt.sign({ id }, secret, {
-        expiresIn,
-      }),
-    });
   },
 };
 
