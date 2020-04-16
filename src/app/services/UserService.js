@@ -7,8 +7,6 @@ const UserService = {
     if (!name) throw new Error('Nome inválido.');
     if (!email) throw new Error('Email inválido.');
     if (!password) throw new Error('Senha inválida.');
-    if (password.length < 6)
-      throw new Error('A senha deve ter no mínimo 6 caracteres.');
 
     let user = await this.getUserByEmail(email);
     if (user) throw new Error('Usuário já cadastrado.');
@@ -30,6 +28,9 @@ const UserService = {
     password,
     confirmPassword,
   }) {
+    if (oldPassword && (!password || !confirmPassword))
+      throw new Error('Preencha todos os campos de senha.');
+
     const userById = await this.getUserById(userId);
     const userByEmail = await this.getUserByEmail(email);
 

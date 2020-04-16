@@ -14,31 +14,6 @@ const UserController = {
 
   async update(req, res) {
     try {
-      const schema = Yup.object().shape({
-        name: Yup.string(),
-        email: Yup.string().email(),
-        oldPassword: Yup.string().min(6),
-        password: Yup.string()
-          .min(6)
-          .when('oldPassword', (oldPassword, field) => {
-            if (oldPassword) {
-              return field.required();
-            }
-            return field;
-          }),
-        confirmPassword: Yup.string().when('password', (password, field) => {
-          if (password) {
-            return field.required().oneOf([Yup.ref('password')]);
-          }
-          return field;
-        }),
-      });
-
-      const isValid = await schema.isValid(req.body);
-      if (!isValid) {
-        return res.status(400).json({ error: 'Falha na validação.' });
-      }
-
       const { id, name, email } = await UserService.update(req.body);
       return res.json({ id, name, email });
     } catch (error) {
