@@ -16,9 +16,9 @@ const UserController = {
       const { id, name, email } = await UserService.update(req.body);
       return res.json({ id, name, email });
     } catch (error) {
-      let status = 400;
-      if (error instanceof UnauthorizedError) status = error.statusCode();
-      return res.status(status).json({ error: error.message });
+      let code = 400;
+      if (error instanceof UnauthorizedError) code = error.statusCode();
+      return res.status(code).json({ error: error.message });
     }
   },
 };
