@@ -15,6 +15,14 @@ const TaskService = {
 
     return tasks;
   },
+
+  async update({ task_id }, { check }) {
+    const task = await Task.findByPk(task_id);
+    if (!task) throw new Error('Task inexistente.');
+
+    await task.update({ check });
+    return task;
+  },
 };
 
 export default TaskService;
