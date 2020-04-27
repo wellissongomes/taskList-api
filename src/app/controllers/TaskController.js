@@ -1,4 +1,5 @@
 import TaskService from '../services/TaskService';
+import UnauthorizedError from '../error/error';
 
 const TaskController = {
   async index(req, res) {
@@ -24,7 +25,20 @@ const TaskController = {
       const task = await TaskService.update(req.params, req.body);
       return res.json(task);
     } catch (error) {
-      return res.json({ error: error.message });
+      let code = 400;
+      if (error instanceof UnauthorizedError) code = error.statusCode();
+      return res.status(code).json({ error: error.message });
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      await TaskService.deleteById(req.params, req.body);
+      return res.send();
+    } catch (error) {
+      let code = 400;
+      if (error instanceof UnauthorizedError) code = error.statusCode();
+      return res.status(code).json({ error: error.message });
     }
   },
 };

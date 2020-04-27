@@ -1,4 +1,5 @@
 import Task from '../models/Task';
+import UnauthorizedError from '../error/error';
 
 const TaskService = {
   async create({ task, userId }) {
@@ -16,12 +17,25 @@ const TaskService = {
     return tasks;
   },
 
-  async update({ task_id }, { check }) {
+  async update({ task_id }, { check, userId }) {
     const task = await Task.findByPk(task_id);
     if (!task) throw new Error('Task inexistente.');
 
+    if (task.user_id !== userId)
+      throw new UnauthorizedError('Requisição não autorizada.');
+
     await task.update({ check });
     return task;
+  },
+
+  async deleteById({ task_id }, { userId }) {
+    const task = await Task.findByPk(task_id);
+    if (!task) throw new Error('Task inexistente.');
+
+    if (task.user_id !== userId)
+      throw new UnauthorizedError('Requisição não autorizada.');
+
+    await task.destroy();
   },
 };
 
