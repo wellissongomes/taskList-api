@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import SessionService from '../services/SessionService';
 
 import authConfig from '../../config/auth';
-
+// #front-ender #fullstack
 const SessionController = {
   async store(req, res) {
     try {
