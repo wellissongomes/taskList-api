@@ -13,9 +13,9 @@ routes.post('/users', UserController.store);
 routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
-
+//comentario
 routes.put('/users', UserController.update);
-
+//tasks massa
 routes.post('/tasks', TaskController.store);
 routes.get('/tasks', TaskController.index);
 routes.put('/tasks/:task_id', TaskController.update);
