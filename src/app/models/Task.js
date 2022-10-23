@@ -1,5 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
+//Classe responsavel pelas tarefas
 class Task extends Model {
   static init(sequelize) {
     super.init(
