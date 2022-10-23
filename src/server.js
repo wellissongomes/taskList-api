@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import routes from './routes';
 
+//Database is PostgreSQL
 import './database';
 
 const server = express();
