@@ -1,3 +1,4 @@
+// TODO: add default message: 'User is not logged in.'
 class UnauthorizedError extends Error {
   constructor(message) {
     super(message);
